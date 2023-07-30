@@ -2,7 +2,10 @@
 
 namespace App\Entity;
 
+use App\Entity\Activity;
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -27,6 +30,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $password = null;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Activity::class, orphanRemoval: true)]
+    private Collection $activities;
+
+
+    public function __construct()
+    {
+        $this->activities = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -97,4 +109,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
+
+
+    /**
+     * @return Collection<int, Activity>
+     */
+    public function getActivities(): Collection
+    {
+        return $this->activities;
+    }
+
+    public function addActivities(Activity $activities): static
+    {
+        if (!$this->activities->contains($activities)) {
+            $this->activities->add($activities);
+            $activities->setUserId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeActivities(Activity $activities): static
+    {
+        if ($this->activities->removeElement($activities)) {
+            // set the owning side to null (unless already changed)
+            if ($activities->getUserId() === $this) {
+                $activities->setUserId(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\ActivityRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -19,26 +17,24 @@ class Activity
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(length: 255)]
     private ?string $image = null;
 
-    #[ORM\ManyToOne(targetEntity: 'User',inversedBy: 'activities')]
-    #[ORM\Column(length: 255, nullable: false)]
-    private ?User $user;
+    #[ORM\Column]
+    private ?bool $is_global = null;
 
-    #[ORM\OneToMany(mappedBy: 'Activity', targetEntity: UserActivity::class, orphanRemoval: true)]
-    private Collection $userActivities;
+    #[ORM\Column(nullable: true)]
+    private ?int $parent_id = null;
+
+    #[ORM\ManyToOne(inversedBy: 'activities')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $date = null;
-
-    public function __construct()
-    {
-        $this->userActivities = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -62,7 +58,7 @@ class Activity
         return $this->description;
     }
 
-    public function setDescription(?string $description): static
+    public function setDescription(string $description): static
     {
         $this->description = $description;
 
@@ -74,19 +70,43 @@ class Activity
         return $this->image;
     }
 
-    public function setImage(?string $image): static
+    public function setImage(string $image): static
     {
         $this->image = $image;
 
         return $this;
     }
 
-    public function getUser(): ?User
+    public function isGlobal(): ?bool
+    {
+        return $this->is_global;
+    }
+
+    public function setIsGlobal(bool $is_global): static
+    {
+        $this->is_global = $is_global;
+
+        return $this;
+    }
+
+    public function getParentId(): ?int
+    {
+        return $this->parent_id;
+    }
+
+    public function setParentId(?int $parent_id): static
+    {
+        $this->parent_id = $parent_id;
+
+        return $this;
+    }
+
+    public function getUserId(): ?User
     {
         return $this->user;
     }
 
-    public function setUser(?User $user): self
+    public function setUserId(?User $user): static
     {
         $this->user = $user;
 
@@ -101,36 +121,6 @@ class Activity
     public function setDate(\DateTimeInterface $date): static
     {
         $this->date = $date;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, UserActivity>
-     */
-    public function getUserActivities(): Collection
-    {
-        return $this->userActivities;
-    }
-
-    public function addUserActivity(UserActivity $userActivity): static
-    {
-        if (!$this->userActivities->contains($userActivity)) {
-            $this->userActivities->add($userActivity);
-            $userActivity->setActivity($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUserActivity(UserActivity $userActivity): static
-    {
-        if ($this->userActivities->removeElement($userActivity)) {
-            // set the owning side to null (unless already changed)
-            if ($userActivity->getActivity() === $this) {
-                $userActivity->setActivity(null);
-            }
-        }
 
         return $this;
     }

@@ -41,6 +41,9 @@
     "kevinpapst/tabler-bundle": {
         "version": "0.22"
     },
+    "knplabs/knp-paginator-bundle": {
+        "version": "v6.2.0"
+    },
     "phpunit/phpunit": {
         "version": "9.6",
         "recipe": {
