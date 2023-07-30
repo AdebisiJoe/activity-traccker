@@ -23,6 +23,11 @@ class ActivityContoller extends AbstractController
     #[Route('/', name: 'home', methods: ['GET'])]
     public function index(Request $request, ActivityRepository $activityRepository): Response
     {
+
+        if(!$this->getUser()) {
+            return $this->redirect("/login");
+        }
+
         return $this->render('activity/index.html.twig', [
             'activities' =>  $this->paginatorService->paginate($activityRepository->findAll(), $request),
         ]);
