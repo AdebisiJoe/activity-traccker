@@ -20,7 +20,7 @@ class ActivityContoller extends AbstractController
         $this->paginatorService = $paginatorService;
         $this->managerRegistry = $managerRegistry;
     }
-    #[Route('/', name: 'home', methods: ['GET'])]
+    #[Route('/activities', name: 'activities', methods: ['GET'])]
     public function index(Request $request, ActivityRepository $activityRepository): Response
     {
 

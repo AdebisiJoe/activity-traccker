@@ -23,6 +23,8 @@ class UserFixtures extends Fixture
 
         // Create a super admin user
         $user = new User();
+        $user->setFirstname($faker->lastName);
+        $user->setLastname($faker->firstName);
         $user->setEmail('admin@gmail.com');
         $user->setPassword($this->userPasswordHasherInterface->hashPassword(
             $user, "admin_password"
@@ -33,6 +35,8 @@ class UserFixtures extends Fixture
         // Create other users
         for ($i = 1; $i <= 10; $i++) {
             $user = new User();
+            $user->setFirstname($faker->lastName);
+            $user->setLastname($faker->firstName);
             $user->setEmail($faker->email);
             $user->setPassword($this->userPasswordHasherInterface->hashPassword(
                 $user, "password"

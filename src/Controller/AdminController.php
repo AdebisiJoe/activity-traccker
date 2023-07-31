@@ -2,13 +2,26 @@
 
 namespace App\Controller;
 
+use App\Repository\ActivityRepository;
+use App\Repository\UserRepository;
+use App\Services\PaginatorService;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AdminController extends AbstractController
 {
+
+    private $paginatorService;
+    private $managerRegistry;
+
+    public function __construct(PaginatorService $paginatorService, ManagerRegistry $managerRegistry) {
+        $this->paginatorService = $paginatorService;
+        $this->managerRegistry = $managerRegistry;
+    }
 
     #[Route('/admin', name: 'app_admin')]
     public function index(): Response
@@ -36,12 +49,16 @@ class AdminController extends AbstractController
     }
 
 
-    #[Route('/users', name: 'users')]
-    public function appUsers(RequestStack $requestStack): Response
+    #[Route('/', name: 'home')]
+    public function appUsers(Request $request, UserRepository $userRepository): Response
     {
-        $requestStack->getSession()->remove('theme');
+        if(!$this->getUser()) {
+            return $this->redirect("/login");
+        }
 
-        return $this->redirectToRoute('home');
+        return $this->render('user/index.html.twig', [
+            'users' =>  $this->paginatorService->paginate($userRepository->findAll(), $request),
+        ]);
     }
 
 

@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}  Users ! {% endblock %}
+{% block page_actions %}
+
+{% endblock %}
+{% block page_content %}
+    <h1>Users</h1>
+    <button class="btn btn-primary">Add New User</button>
+    <table class="table table-vcenter card-table table-striped">
+        <thead>
+        <tr>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Email</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.firstname }}</td>
+                <td>{{ user.lastname }}</td>
+                <td>{{ user.email }}</td>
+                <td>
+                    <div class="btn-list flex-nowrap">
+                        <a href="#" class="btn">
+                            Edit
+                        </a>
+                        <a href="#" class="btn">
+                            Add User Activity
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
