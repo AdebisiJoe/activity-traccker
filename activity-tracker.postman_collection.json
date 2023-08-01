@@ -1,0 +1,93 @@
+{
+	"info": {
+		"_postman_id": "8156e8d3-818c-4685-b004-ca0f85273b0d",
+		"name": "activity-tracker",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "2057742"
+	},
+	"item": [
+		{
+			"name": "http://127.0.0.1:8000/api/login_check",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2OTA4ODY3MDIsImV4cCI6MTY5MDg5MDMwMiwicm9sZXMiOlsiUk9MRV9TVVBFUl9BRE1JTiIsIlJPTEVfVVNFUiJdLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSJ9.s5ud_neT6LPIqmSWHW6x4m3tSGdQnNlcSwNkDwD7zcRuUVc1sEkCooXjomMxcuGj7jbD7_7Z71WCuFbS97V4syMipPy60JlpFGhm9_WPgzO4eFr-86cEVEsHOtU7E90-rmQ0-iaUfa9a7VYd_x4pt7EXWkmvVmDiR-f3oCam-_Vm_GgY1s7Moc6ZmHCkJpwV3UkRXbTO0LpFx6708f6HtqEz4mcdJ3ocIjpC9koTqtBtXDopK-D15Lj9UthZocFDYWOvADzBPX-BWW77HDSAjKxoLMrPEawqFcSwXXJqQDOid50xvojZ2NH4g9pQXPrjIXoBuChGRThR_rHPlkAhDw"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"admin@gmail.com\",\n    \"password\": \"admin_password\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://127.0.0.1:8000/api/login_check"
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8000/api/registration",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"adejoe@gmail.com\",\n    \"firstname\": \"Joseph\",\n    \"lastname\": \"Adebisi\",\n    \"password\": \"admin_password\",\n    \"role\": \"USER\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://127.0.0.1:8000/api/registration"
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8000/api/user/12/activities?start_date=2023-07-04&end_date=2023-07-18",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2OTA4ODY3MDIsImV4cCI6MTY5MDg5MDMwMiwicm9sZXMiOlsiUk9MRV9TVVBFUl9BRE1JTiIsIlJPTEVfVVNFUiJdLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSJ9.s5ud_neT6LPIqmSWHW6x4m3tSGdQnNlcSwNkDwD7zcRuUVc1sEkCooXjomMxcuGj7jbD7_7Z71WCuFbS97V4syMipPy60JlpFGhm9_WPgzO4eFr-86cEVEsHOtU7E90-rmQ0-iaUfa9a7VYd_x4pt7EXWkmvVmDiR-f3oCam-_Vm_GgY1s7Moc6ZmHCkJpwV3UkRXbTO0LpFx6708f6HtqEz4mcdJ3ocIjpC9koTqtBtXDopK-D15Lj9UthZocFDYWOvADzBPX-BWW77HDSAjKxoLMrPEawqFcSwXXJqQDOid50xvojZ2NH4g9pQXPrjIXoBuChGRThR_rHPlkAhDw"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/user/12/activities?start_date=2023-07-04&end_date=2023-07-18",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"user",
+						"12",
+						"activities"
+					],
+					"query": [
+						{
+							"key": "start_date",
+							"value": "2023-07-04"
+						},
+						{
+							"key": "end_date",
+							"value": "2023-07-18"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
