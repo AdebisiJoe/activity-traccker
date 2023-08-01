@@ -28,18 +28,6 @@ class ApiActivityController extends AbstractController
         ]);
     }
 
-    #[Route('/api/activity/filter/user', name: 'activities', methods: ['GET'])]
-    public function allUserActivitiesByDate(Request $request, ActivityRepository $activityRepository): JsonResponse
-    {
-
-        if(!$this->getUser()) {
-            return $this->redirect("/login");
-        }
-
-        return $this->render('activity/index.html.twig', [
-            'activities' =>  $this->paginatorService->paginate($activityRepository->findAll(), $request),
-        ]);
-    }
 
     #[Route('/api/user/{userId}/activities', name: 'api_user_activities_by_date_range', methods: ['GET'])]
     public function getUserActivitiesByDateRange(Request $request, ActivityRepository $activityRepository, int $userId): JsonResponse
