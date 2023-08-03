@@ -28,7 +28,6 @@ class ApiActivityController extends AbstractController
         ]);
     }
 
-
     #[Route('/api/user/{userId}/activities', name: 'api_user_activities_by_date_range', methods: ['GET'])]
     public function getUserActivitiesByDateRange(Request $request, ActivityRepository $activityRepository, int $userId): JsonResponse
     {

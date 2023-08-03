@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}  Users ! {% endblock %}
+
+{% block page_actions %}
+
+{% endblock %}
+
+{% block page_content %}
+    <h1>Create new User</h1>
+
+    <div class="row">
+        <div class="col-md-6">
+            {% embed '@Tabler/embeds/card.html.twig' %}
+                {% form_theme form '@Tabler/layout/form-theme-horizontal.html.twig' %}
+                {% block box_before %}{{ form_start(form) }}{% endblock %}
+                {% block box_title %}{{ 'Create User'|trans }}{% endblock %}
+                {% block box_body %}
+                    {{ form_widget(form) }}
+                {% endblock %}
+                {% block box_footer %}
+                    <div class="pull-right">
+                        <button type="submit" class="btn btn-primary"><i class="icon fas fa-check-square"></i> {{ 'Submit'|trans }}</button>
+                    </div>
+                {% endblock %}
+
+                {% block box_after %}{{ form_end(form)}}{% endblock %}
+            {% endembed %}
+        </div>
+        <div class="col-md-6">
+            {% block form_sidebar %}{% endblock %}
+        </div>
+    </div>
+
+{% endblock %}

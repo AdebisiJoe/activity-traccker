@@ -15,7 +15,7 @@ class UserFormType extends AbstractType
             ->add('email')
             ->add('firstname')
             ->add('lastname')
-            ->add('roles')
+            //->add('roles')
             ->add('password')
         ;
     }
